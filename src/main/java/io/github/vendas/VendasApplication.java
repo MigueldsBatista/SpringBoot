@@ -1,34 +1,34 @@
 package io.github.vendas;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
-//import org.springframework.boot.actuate.endpoint.web.annotation.RestControllerEndpoint;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;//Isso aq garante que a  gnt vai seguir o protocolo https
 
 @SpringBootApplication
-@RestController//Segue os padroes https
+
+
+/*
+caso eu fosse usar uma lib de terceiros essa seria uma forma de indicar ao container que eue estou usando esse pacote
+
+@ComponentScan(basePackages =
+{"io.github.vendas"},
+{"io.github.vendas.repository"},)
+
+*/
 public class VendasApplication {
-    //Essa classe aq equivale as views
-    @Autowired
-    @Qualifier("applicationName")
-    private String applicationName;
 
-
-    @GetMapping("/hello")
-    public String helloWorld() {
-        return applicationName;
+    public static void main(String[] args) {
+        SpringApplication.run(VendasApplication.class, args);
     }
 
-    @GetMapping("/info")
-    public String info() {
-        return "Miguel Batista";
-    }
-	public static void main(String[] args) {
-		SpringApplication.run(VendasApplication.class, args);
+    @Controller
+    public static class WebController {
 
-	}
-    
+        @GetMapping("/home")
+        public String home() {
+            return "home"; // Nome do arquivo HTML, sem a extensão .html
+        }
+    }
 }

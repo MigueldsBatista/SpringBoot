@@ -7,6 +7,7 @@
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
+
 	</parent>
 	<groupId>io.github</groupId>
 	<artifactId>vendas</artifactId>
@@ -27,9 +28,10 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>22</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
+
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -40,6 +42,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency> -->
+
+
+
+
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
