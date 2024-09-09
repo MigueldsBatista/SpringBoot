@@ -1,19 +1,23 @@
 package com.example.vendas;
+import org.springframework.context.annotation.Bean;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.ComponentScan;
 
-import domain.entity.Cliente;
-import domain.repository.Clientes;
+import com.example.vendas.domain.entity.Cliente;
+import com.example.vendas.domain.repository.Clientes;
+
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.example.vendas", "domain.repository"})//fazer um scan manual
+@ComponentScan(basePackages = {"com.example.vendas", "com.example.vendas.domain.repository"})//fazer um scan manual
 public class VendasApplication {
 
 	@Bean
@@ -21,23 +25,13 @@ public class VendasApplication {
 		//CMD
 		return args -> {
 			System.out.println("Salvando clientes... ");
+			clientes.salvar(new Cliente(null, "Miguel"));
+			clientes.salvar(new Cliente(null, "Miguel"));
 
-			Cliente cliente = new Cliente(1, "Miguel");//instanciamos a classe
-			clientes.salvar(cliente);
-			Cliente cliente2 = new Cliente(2, "Yasmin");
-			clientes.salvar(cliente2);
-
+			System.out.println("Buscando todos os clientes... ");
+			
+			
 			List<Cliente> todosClientes=clientes.obterTodos();//parecido com uma lista encadeada
-			todosClientes.forEach(System.out::println);
-			System.out.println("Atualizando clientes... ");
-
-			todosClientes.forEach(c ->{
-				c.setNome(c.getNome()+" atualizado.");
-				clientes.atualizar(c);
-
-			});
-
-			todosClientes=clientes.obterTodos();//parecido com uma lista encadeada
 			todosClientes.forEach(System.out::println);
 
 			System.out.println("Buscando clientes... ");
@@ -57,7 +51,7 @@ public class VendasApplication {
 			else{
 				todosClientes.forEach(System.out::println);
 			}
-		};
+		}; 
 	}
  
 	public static void main(String[] args) {//aq até agora so fica o run server
