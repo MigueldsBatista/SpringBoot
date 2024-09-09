@@ -24,26 +24,39 @@ public class VendasApplication {
 	public CommandLineRunner init(@Autowired Clientes clientes){//injeção de Cliente
 		//CMD
 		return args -> {
+			//limpar o terminal
 			System.out.println("Salvando clientes... ");
-			clientes.salvar(new Cliente(null, "Miguel"));
-			clientes.salvar(new Cliente(null, "Miguel"));
+			clientes.save(new Cliente(null, "Miguel"));
+			clientes.save(new Cliente(null, "Miguel"));
 
 			System.out.println("Buscando todos os clientes... ");
 			
 			
-			List<Cliente> todosClientes=clientes.obterTodos();//parecido com uma lista encadeada
+			List<Cliente> todosClientes=clientes.findAll();//parecido com uma lista encadeada
 			todosClientes.forEach(System.out::println);
 
+			System.out.println("Atualizando clientes... ");
+			todosClientes.forEach(c -> {
+				c.setNome(c.getNome()+" - Atualizado");
+				clientes.save(c);
+			});
+			todosClientes=clientes.findAll();//parecido com uma lista encadeada
+			todosClientes.forEach(System.out::println);
+
+
 			System.out.println("Buscando clientes... ");
-			List<Cliente> buscaNome=clientes.buscarPorNome("Miguel");
+			List<Cliente> buscaNome=clientes.findByNomeLike("Miguel");
 			buscaNome.forEach(System.out::println);
 
+			boolean existe=clientes.existsByNome("Douglas");
+
+			System.out.println("Existe cliente com nome Douglas? "+existe);
 			System.out.println("Deletando clientes... ");
-			clientes.obterTodos().forEach(c ->{
-			clientes.deletar(c.getId());
+			clientes.findAll().forEach(c ->{
+			clientes.delete(c);
 			});
 
-			todosClientes=clientes.obterTodos();
+			todosClientes=clientes.findAll();
 			if (todosClientes.isEmpty()){
 				System.out.println("Nenhum cliente encontrado.");
 
@@ -51,6 +64,8 @@ public class VendasApplication {
 			else{
 				todosClientes.forEach(System.out::println);
 			}
+
+
 		}; 
 	}
  

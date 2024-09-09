@@ -1,66 +1,25 @@
 package com.example.vendas.domain.repository;
 import com.example.vendas.domain.entity.Cliente;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-
-
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+//nao preciso colocar @Repository pois ele ja vai ser automatico pelo Jpa repository
+public interface Clientes extends JpaRepository<Cliente, Integer>{//Primeiro parametro e o tipo da entidade e o segundo o tipo do ID
 
-import org.springframework.transaction.annotation.Transactional;
+//ele identifica como select c from cliente where c.nome like :nome
+public List<Cliente> findByNomeLike(String nome);//nome é uma convencão para o nome do parametro 
 
+//import org.springframework.data.jpa.repository.Query;
 
-@Repository
-public class Clientes {
+//@Query(value="select c from Cliente c where c.nome like :nome or c.id = :id")
+//public List<Cliente> encontrarNome(String nome);
+//assim posso especificar a query que quero rodar
+//tambem posso usar o parametro nativeQuery para fazer o select direto
 
-    @Autowired
-    private EntityManager entityManager;//faz as operações na base com nossas entidades
-
-    //SEGUNDO parametro é um roll mapper 
-    @Transactional(readOnly=true)
-    public List<Cliente> buscarPorNome(String nome) {
-        String SEARCH = "select c from Cliente c where c.nome like :nome";
-// : -> parametro jpa
-        TypedQuery<Cliente> query = entityManager.createQuery(SEARCH, Cliente.class);
-        query.setParameter("nome", "%" + nome + "%");
-        return query.getResultList();
-    }
-
-    @Transactional(readOnly=true)
-    public List<Cliente> obterTodos(){
-        return entityManager.createQuery("from Cliente", Cliente.class).getResultList();
-    }
-
-    @Transactional
-    public void deleter(Cliente cliente){ //metodo void pois so precisamos deletar
-        if(!entityManager.contains(cliente)){
-
-            cliente = entityManager.merge(cliente);//sincroniza a entidade com o entity manager
-        }
-        entityManager.remove(cliente);
-    }
-
-    @Transactional
-    public void deletar(Integer id){
-        Cliente cliente = entityManager.find(Cliente.class, id);
-        deleter(cliente);
-    }
- 
-    @Transactional
-    public Cliente salvar(Cliente cliente){
-        entityManager.persist(cliente);//agora usando entity manager para salvar
-        return cliente;
-    }
-    @Transactional
-    public Cliente atualizar(Cliente cliente){//sincroniza esse cliente com o nosso do banco de dados
-        entityManager.merge(cliente);//atualizar uma entidade
-        return cliente;     
-    }
-
-
+public List<Cliente> findByNomeOrId(String nome, Integer id);//outra forma de fazer o filtro
     
+public List<Cliente> findByNomeOrIdOrderById(String nome, Integer id);
 
+public boolean existsByNome(String nome);
 }
