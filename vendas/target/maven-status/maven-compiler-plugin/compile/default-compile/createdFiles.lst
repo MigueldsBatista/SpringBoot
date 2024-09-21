@@ -1,0 +1,6 @@
+com/example/vendas/VendasApplication.class
+com/example/vendas/domain/repository/Clientes.class
+com/example/vendas/domain/entity/Produto.class
+com/example/vendas/domain/entity/ItemPedido.class
+com/example/vendas/domain/entity/Cliente.class
+com/example/vendas/domain/entity/Pedido.class

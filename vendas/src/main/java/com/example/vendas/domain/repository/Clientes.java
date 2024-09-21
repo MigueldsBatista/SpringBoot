@@ -4,6 +4,8 @@ import com.example.vendas.domain.entity.Cliente;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 //nao preciso colocar @Repository pois ele ja vai ser automatico pelo Jpa repository
 public interface Clientes extends JpaRepository<Cliente, Integer>{//Primeiro parametro e o tipo da entidade e o segundo o tipo do ID
 
@@ -22,4 +24,8 @@ public List<Cliente> findByNomeOrId(String nome, Integer id);//outra forma de fa
 public List<Cliente> findByNomeOrIdOrderById(String nome, Integer id);
 
 public boolean existsByNome(String nome);
+
+@Query(" select c from Cliente c left join fetch c.pedidos where c.id =:id ")
+Cliente findClienteFetchPedidos(@Param("id") Integer id);
+//me traz os clientes que possuem pedidos
 }

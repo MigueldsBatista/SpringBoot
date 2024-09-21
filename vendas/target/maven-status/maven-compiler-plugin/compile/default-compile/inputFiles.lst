@@ -1,0 +1,6 @@
+/home/miguel/SpringBoot/vendas/src/main/java/com/example/vendas/VendasApplication.java
+/home/miguel/SpringBoot/vendas/src/main/java/com/example/vendas/domain/entity/Cliente.java
+/home/miguel/SpringBoot/vendas/src/main/java/com/example/vendas/domain/entity/ItemPedido.java
+/home/miguel/SpringBoot/vendas/src/main/java/com/example/vendas/domain/entity/Pedido.java
+/home/miguel/SpringBoot/vendas/src/main/java/com/example/vendas/domain/entity/Produto.java
+/home/miguel/SpringBoot/vendas/src/main/java/com/example/vendas/domain/repository/Clientes.java

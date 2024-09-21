@@ -20,7 +20,17 @@ public class Produto {
     
     @Column(name="preco_unitario")//nao é o mesmo nome do db por isso eu uso
     private BigDecimal preco;
+    
 
+    public Produto(Integer id, String descricao, BigDecimal preco){
+        this.id=id;
+        this.descricao=descricao;
+        this.preco=preco;
+    }
+
+    public Produto(){
+
+    }
     //Métodos getters
 
     public Integer getId() {
